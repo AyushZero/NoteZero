@@ -1,16 +1,39 @@
-# notezero
+# NoteZero
 
-A new Flutter project.
+A minimalist note-taking application built with Flutter, inspired by Obsidian's simplicity.
+
+## Features
+
+- Clean, distraction-free interface with a dark theme
+- Simple navigation drawer for managing notes
+- Create and edit plain text notes
+- View list of all notes
+- Markdown support for basic formatting
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+- Flutter SDK (latest stable version)
+- Android Studio or VS Code with Flutter extensions
+- Android SDK for Android deployment
+- Xcode for iOS deployment (Mac only)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Installation
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Clone this repository
+2. Run `flutter pub get` to install dependencies
+3. Open the project in Android Studio or VS Code
+4. Run the app using `flutter run`
+
+## Development
+
+This app is built using:
+- Flutter for the UI framework
+- Provider for state management
+- Path Provider for local storage
+- Markdown rendering for note display
+
+## License
+
+This project is licensed under the MIT License.
