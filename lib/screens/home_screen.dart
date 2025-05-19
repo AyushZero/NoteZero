@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import '../providers/notes_provider.dart';
+import '../providers/theme_provider.dart';
 import 'note_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -55,6 +56,68 @@ class HomeScreen extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (context) => const NoteScreen(),
                     ),
+                  );
+                },
+              ),
+              Consumer<ThemeProvider>(
+                builder: (context, themeProvider, child) {
+                  return ListTile(
+                    leading: Icon(
+                      themeProvider.themeMode == ThemeMode.dark
+                          ? Icons.light_mode
+                          : Icons.dark_mode,
+                    ),
+                    title: Text(
+                      themeProvider.themeMode == ThemeMode.dark
+                          ? 'Light Mode'
+                          : 'Dark Mode',
+                    ),
+                    onTap: () {
+                      themeProvider.toggleTheme();
+                      Navigator.pop(context);
+                    },
+                  );
+                },
+              ),
+              Consumer<NotesProvider>(
+                builder: (context, notesProvider, child) {
+                  if (notesProvider.notes.isEmpty) return const SizedBox.shrink();
+                  return ListTile(
+                    leading: const Icon(Icons.delete_forever),
+                    title: const Text('Delete All Notes'),
+                    onTap: () {
+                      Navigator.pop(context);
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text('Delete All Notes'),
+                          content: const Text(
+                            'Are you sure you want to delete all notes? This action cannot be undone.',
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                notesProvider.deleteAllNotes();
+                                Navigator.pop(context);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('All notes deleted'),
+                                  ),
+                                );
+                              },
+                              child: const Text(
+                                'Delete',
+                                style: TextStyle(color: Colors.red),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   );
                 },
               ),

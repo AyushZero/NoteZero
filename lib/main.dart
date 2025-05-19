@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'models/note.dart';
 import 'screens/home_screen.dart';
 import 'providers/notes_provider.dart';
+import 'providers/theme_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,24 +14,45 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => NotesProvider(),
-      child: MaterialApp(
-        title: 'NoteZero',
-        theme: ThemeData.dark().copyWith(
-          primaryColor: Colors.grey[900],
-          scaffoldBackgroundColor: const Color(0xFF1E1E1E),
-          appBarTheme: AppBarTheme(
-            backgroundColor: Colors.grey[900],
-            elevation: 0,
-          ),
-          colorScheme: ColorScheme.dark(
-            primary: Colors.grey[200]!,
-            secondary: Colors.grey[600]!,
-            surface: Colors.grey[850]!,
-          ),
-        ),
-        home: const HomeScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => NotesProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ],
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
+          return MaterialApp(
+            title: 'NoteZero',
+            themeMode: themeProvider.themeMode,
+            theme: ThemeData.light().copyWith(
+              primaryColor: Colors.blue,
+              scaffoldBackgroundColor: Colors.white,
+              appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.blue,
+                elevation: 0,
+              ),
+              colorScheme: ColorScheme.light(
+                primary: Colors.blue,
+                secondary: Colors.blueAccent,
+                surface: Colors.white,
+              ),
+            ),
+            darkTheme: ThemeData.dark().copyWith(
+              primaryColor: Colors.black,
+              scaffoldBackgroundColor: const Color(0xFF121212),
+              appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.black,
+                elevation: 0,
+              ),
+              colorScheme: ColorScheme.dark(
+                primary: Colors.white,
+                secondary: Colors.grey[400]!,
+                surface: const Color(0xFF1E1E1E),
+              ),
+            ),
+            home: const HomeScreen(),
+          );
+        },
       ),
     );
   }
