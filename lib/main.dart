@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'models/note.dart';
 import 'screens/home_screen.dart';
 import 'providers/notes_provider.dart';
 import 'providers/theme_provider.dart';
@@ -31,7 +30,7 @@ class MyApp extends StatelessWidget {
                 backgroundColor: Colors.blue,
                 elevation: 0,
               ),
-              colorScheme: ColorScheme.light(
+              colorScheme: const ColorScheme.light(
                 primary: Colors.blue,
                 secondary: Colors.blueAccent,
                 surface: Colors.white,
