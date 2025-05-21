@@ -30,36 +30,36 @@ class MyApp extends StatelessWidget {
               appBarTheme: const AppBarTheme(
                 backgroundColor: Colors.white,
                 elevation: 0,
-                iconTheme: IconThemeData(color: Color(0xFF9C27B0)),
+                iconTheme: IconThemeData(color: Color(0xFFD09CDA)),
                 titleTextStyle: TextStyle(
-                  color: Color(0xFF9C27B0),
+                  color: Color(0xFFAF85B6),
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               colorScheme: const ColorScheme.light(
-                primary: Color(0xFF9C27B0),
+                primary: Color(0xFFA268AC),
                 secondary: Color(0xFFBA68C8),
                 surface: Colors.white,
               ),
               floatingActionButtonTheme: const FloatingActionButtonThemeData(
-                backgroundColor: Color(0xFF9C27B0),
+                backgroundColor: Color(0xFFAD5CBC),
                 foregroundColor: Colors.white,
               ),
               dividerTheme: const DividerThemeData(
-                color: Color(0xFF9C27B0),
+                color: Color(0xFFA07BA6),
                 thickness: 1,
               ),
             ),
             darkTheme: ThemeData.dark().copyWith(
-              primaryColor: const Color(0xFF7B1FA2),
-              scaffoldBackgroundColor: const Color(0xFF121212),
+              primaryColor: const Color(0xFF996DAA),
+              scaffoldBackgroundColor: const Color(0xFF171717),
               appBarTheme: const AppBarTheme(
                 backgroundColor: Color(0xFF121212),
                 elevation: 0,
-                iconTheme: IconThemeData(color: Color(0xFF7B1FA2)),
+                iconTheme: IconThemeData(color: Color(0xFF8F67A3)),
                 titleTextStyle: TextStyle(
-                  color: Color(0xFF7B1FA2),
+                  color: Color(0xFFA968C5),
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
