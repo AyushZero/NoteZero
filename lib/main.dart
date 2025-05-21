@@ -25,29 +25,37 @@ class MyApp extends StatelessWidget {
             title: 'NoteZero',
             themeMode: themeProvider.themeMode,
             theme: ThemeData.light().copyWith(
-              primaryColor: Colors.blue,
+              primaryColor: const Color(0xFF9C27B0), // Light purple
               scaffoldBackgroundColor: Colors.white,
               appBarTheme: const AppBarTheme(
-                backgroundColor: Colors.blue,
+                backgroundColor: Color(0xFF9C27B0),
                 elevation: 0,
               ),
               colorScheme: const ColorScheme.light(
-                primary: Colors.blue,
-                secondary: Colors.blueAccent,
+                primary: Color(0xFF9C27B0),
+                secondary: Color(0xFFBA68C8),
                 surface: Colors.white,
+              ),
+              floatingActionButtonTheme: const FloatingActionButtonThemeData(
+                backgroundColor: Color(0xFF9C27B0),
+                foregroundColor: Colors.white,
               ),
             ),
             darkTheme: ThemeData.dark().copyWith(
-              primaryColor: Colors.black,
+              primaryColor: const Color(0xFF7B1FA2), // Darker purple
               scaffoldBackgroundColor: const Color(0xFF121212),
               appBarTheme: const AppBarTheme(
-                backgroundColor: Colors.black,
+                backgroundColor: Color(0xFF7B1FA2),
                 elevation: 0,
               ),
-              colorScheme: ColorScheme.dark(
-                primary: Colors.white,
-                secondary: Colors.grey[400]!,
-                surface: const Color(0xFF1E1E1E),
+              colorScheme: const ColorScheme.dark(
+                primary: Color(0xFF7B1FA2),
+                secondary: Color(0xFF9C27B0),
+                surface: Color(0xFF1E1E1E),
+              ),
+              floatingActionButtonTheme: const FloatingActionButtonThemeData(
+                backgroundColor: Color(0xFF7B1FA2),
+                foregroundColor: Colors.white,
               ),
             ),
             home: const HomeScreen(),
