@@ -47,17 +47,17 @@ class MyApp extends StatelessWidget {
                 foregroundColor: Colors.white,
               ),
               dividerTheme: const DividerThemeData(
-                color: Color(0xFFA07BA6),
+                color: Color(0xFF270133),
                 thickness: 1,
               ),
             ),
             darkTheme: ThemeData.dark().copyWith(
-              primaryColor: const Color(0xFF996DAA),
+              primaryColor: const Color(0xFFC698D8),
               scaffoldBackgroundColor: const Color(0xFF171717),
               appBarTheme: const AppBarTheme(
                 backgroundColor: Color(0xFF121212),
                 elevation: 0,
-                iconTheme: IconThemeData(color: Color(0xFF8F67A3)),
+                iconTheme: IconThemeData(color: Color(0xFFD09DE8)),
                 titleTextStyle: TextStyle(
                   color: Color(0xFFA968C5),
                   fontSize: 20,
@@ -65,16 +65,16 @@ class MyApp extends StatelessWidget {
                 ),
               ),
               colorScheme: const ColorScheme.dark(
-                primary: Color(0xFF7B1FA2),
+                primary: Color(0xFFA665C3),
                 secondary: Color(0xFF9C27B0),
                 surface: Color(0xFF1E1E1E),
               ),
               floatingActionButtonTheme: const FloatingActionButtonThemeData(
-                backgroundColor: Color(0xFF7B1FA2),
+                backgroundColor: Color(0xFF9D4ABF),
                 foregroundColor: Colors.white,
               ),
               dividerTheme: const DividerThemeData(
-                color: Color(0xFF7B1FA2),
+                color: Color(0xFFAD47DA),
                 thickness: 1,
               ),
             ),
