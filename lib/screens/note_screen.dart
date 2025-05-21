@@ -15,6 +15,7 @@ class NoteScreen extends StatefulWidget {
 class _NoteScreenState extends State<NoteScreen> {
   late TextEditingController _titleController;
   late TextEditingController _contentController;
+  late FocusNode _contentFocusNode;
   bool _isEdited = false;
 
   @override
@@ -22,9 +23,17 @@ class _NoteScreenState extends State<NoteScreen> {
     super.initState();
     _titleController = TextEditingController(text: widget.note?.title ?? '');
     _contentController = TextEditingController(text: widget.note?.content ?? '');
+    _contentFocusNode = FocusNode();
 
     _titleController.addListener(_onTextChanged);
     _contentController.addListener(_onTextChanged);
+
+    // Auto-focus content field for new notes
+    if (widget.note == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _contentFocusNode.requestFocus();
+      });
+    }
   }
 
   void _onTextChanged() {
@@ -37,6 +46,7 @@ class _NoteScreenState extends State<NoteScreen> {
   void dispose() {
     _titleController.dispose();
     _contentController.dispose();
+    _contentFocusNode.dispose();
     super.dispose();
   }
 
@@ -127,6 +137,7 @@ class _NoteScreenState extends State<NoteScreen> {
               Expanded(
                 child: TextField(
                   controller: _contentController,
+                  focusNode: _contentFocusNode,
                   maxLines: null,
                   expands: true,
                   style: const TextStyle(
