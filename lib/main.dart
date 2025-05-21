@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: 'NoteZero',
             themeMode: themeProvider.themeMode,
             theme: ThemeData.light().copyWith(

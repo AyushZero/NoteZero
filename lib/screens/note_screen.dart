@@ -78,6 +78,24 @@ class _NoteScreenState extends State<NoteScreen> {
     return true;
   }
 
+  String _generateTitleFromContent(String content) {
+    if (content.isEmpty) return 'Untitled';
+    
+    // Split content into words and take first 5 words
+    final words = content.trim().split(RegExp(r'\s+'));
+    if (words.isEmpty) return 'Untitled';
+    
+    // Take up to 5 words or all words if less than 5
+    final titleWords = words.take(5).join(' ');
+    
+    // If title is longer than 30 characters, truncate it
+    if (titleWords.length > 30) {
+      return '${titleWords.substring(0, 27)}...';
+    }
+    
+    return titleWords;
+  }
+
   void _saveNote() {
     final title = _titleController.text.trim();
     final content = _contentController.text.trim();
@@ -88,16 +106,17 @@ class _NoteScreenState extends State<NoteScreen> {
     }
 
     final notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    final finalTitle = title.isEmpty ? _generateTitleFromContent(content) : title;
     
     if (widget.note != null) {
       notesProvider.updateNote(
         widget.note!.id,
-        title.isEmpty ? 'Untitled' : title,
+        finalTitle,
         content,
       );
     } else {
       notesProvider.addNote(
-        title.isEmpty ? 'Untitled' : title,
+        finalTitle,
         content,
       );
     }
