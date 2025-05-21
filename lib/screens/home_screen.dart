@@ -14,6 +14,13 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('NoteZero'),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Container(
+            height: 1,
+            color: Theme.of(context).dividerColor,
+          ),
+        ),
       ),
       drawer: Drawer(
         child: Container(
@@ -23,24 +30,30 @@ class HomeScreen extends StatelessWidget {
             children: [
               DrawerHeader(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Theme.of(context).dividerColor,
+                      width: 1,
+                    ),
+                  ),
                 ),
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
                       'NoteZero',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Theme.of(context).primaryColor,
                         fontSize: 24,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       'Your minimalist notes',
                       style: TextStyle(
-                        color: Colors.white70,
+                        color: Theme.of(context).primaryColor.withOpacity(0.7),
                         fontSize: 16,
                       ),
                     ),
@@ -48,8 +61,16 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               ListTile(
-                leading: const Icon(Icons.note_add),
-                title: const Text('New Note'),
+                leading: Icon(
+                  Icons.note_add,
+                  color: Theme.of(context).primaryColor,
+                ),
+                title: Text(
+                  'New Note',
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.push(
@@ -63,13 +84,21 @@ class HomeScreen extends StatelessWidget {
               Consumer<NotesProvider>(
                 builder: (context, notesProvider, child) {
                   return ListTile(
-                    leading: const Icon(Icons.delete_outline),
-                    title: const Text('Recycle Bin'),
+                    leading: Icon(
+                      Icons.delete_outline,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    title: Text(
+                      'Recycle Bin',
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
                     trailing: notesProvider.deletedNotes.isNotEmpty
                         ? Text(
                             '${notesProvider.deletedNotes.length}',
-                            style: const TextStyle(
-                              color: Colors.grey,
+                            style: TextStyle(
+                              color: Theme.of(context).primaryColor.withOpacity(0.7),
                               fontSize: 14,
                             ),
                           )
@@ -93,11 +122,15 @@ class HomeScreen extends StatelessWidget {
                       themeProvider.themeMode == ThemeMode.dark
                           ? Icons.light_mode
                           : Icons.dark_mode,
+                      color: Theme.of(context).primaryColor,
                     ),
                     title: Text(
                       themeProvider.themeMode == ThemeMode.dark
                           ? 'Light Mode'
                           : 'Dark Mode',
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
                     onTap: () {
                       themeProvider.toggleTheme();
@@ -114,12 +147,12 @@ class HomeScreen extends StatelessWidget {
         builder: (context, notesProvider, child) {
           final notes = notesProvider.notes;
           if (notes.isEmpty) {
-            return const Center(
+            return Center(
               child: Text(
                 'No notes yet.\nCreate one from the menu.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.grey,
+                  color: Theme.of(context).primaryColor.withOpacity(0.7),
                   fontSize: 16,
                 ),
               ),
@@ -132,10 +165,13 @@ class HomeScreen extends StatelessWidget {
               return Dismissible(
                 key: Key(note.id),
                 background: Container(
-                  color: Colors.red,
+                  color: Theme.of(context).primaryColor.withOpacity(0.1),
                   alignment: Alignment.centerRight,
                   padding: const EdgeInsets.only(right: 16),
-                  child: const Icon(Icons.delete, color: Colors.white),
+                  child: Icon(
+                    Icons.delete,
+                    color: Theme.of(context).primaryColor,
+                  ),
                 ),
                 direction: DismissDirection.endToStart,
                 onDismissed: (_) {
@@ -152,24 +188,38 @@ class HomeScreen extends StatelessWidget {
                     ),
                   );
                 },
-                child: ListTile(
-                  title: Text(
-                    note.title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  subtitle: Text(
-                    DateFormat('MMM d, y HH:mm').format(note.modifiedAt),
-                    style: const TextStyle(fontSize: 12),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NoteScreen(note: note),
+                child: Column(
+                  children: [
+                    ListTile(
+                      title: Text(
+                        note.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                        ),
                       ),
-                    );
-                  },
+                      subtitle: Text(
+                        DateFormat('MMM d, y HH:mm').format(note.modifiedAt),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Theme.of(context).primaryColor.withOpacity(0.7),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NoteScreen(note: note),
+                          ),
+                        );
+                      },
+                    ),
+                    Divider(
+                      color: Theme.of(context).dividerColor,
+                      height: 1,
+                    ),
+                  ],
                 ),
               );
             },
