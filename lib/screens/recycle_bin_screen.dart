@@ -75,13 +75,13 @@ class RecycleBinScreen extends StatelessWidget {
               return Dismissible(
                 key: Key(note.id),
                 background: Container(
-                  color: Colors.green,
+                  color: Colors.purple,
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.only(left: 16),
                   child: const Icon(Icons.restore, color: Colors.white),
                 ),
                 secondaryBackground: Container(
-                  color: Colors.red,
+                  color: Colors.purple,
                   alignment: Alignment.centerRight,
                   padding: const EdgeInsets.only(right: 16),
                   child: const Icon(Icons.delete_forever, color: Colors.white),
@@ -107,7 +107,7 @@ class RecycleBinScreen extends StatelessWidget {
                           onPressed: () => Navigator.pop(context, true),
                           child: const Text(
                             'Delete',
-                            style: TextStyle(color: Colors.red),
+                            style: TextStyle(color: Colors.purple),
                           ),
                         ),
                       ],
