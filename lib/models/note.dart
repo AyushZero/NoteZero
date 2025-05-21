@@ -6,6 +6,7 @@ class Note {
   String content;
   DateTime createdAt;
   DateTime modifiedAt;
+  bool isDeleted;
 
   Note({
     String? id,
@@ -13,6 +14,7 @@ class Note {
     required this.content,
     DateTime? createdAt,
     DateTime? modifiedAt,
+    this.isDeleted = false,
   })  : id = id ?? const Uuid().v4(),
         createdAt = createdAt ?? DateTime.now(),
         modifiedAt = modifiedAt ?? DateTime.now();
@@ -24,6 +26,7 @@ class Note {
       'content': content,
       'createdAt': createdAt.toIso8601String(),
       'modifiedAt': modifiedAt.toIso8601String(),
+      'isDeleted': isDeleted,
     };
   }
 
@@ -34,6 +37,7 @@ class Note {
       content: json['content'],
       createdAt: DateTime.parse(json['createdAt']),
       modifiedAt: DateTime.parse(json['modifiedAt']),
+      isDeleted: json['isDeleted'] ?? false,
     );
   }
 } 

@@ -7,8 +7,11 @@ class NotesProvider with ChangeNotifier {
   static const String _notesKey = 'notes';
   List<Note> _notes = [];
   late SharedPreferences _prefs;
+  Note? _lastDeletedNote;
 
-  List<Note> get notes => List.unmodifiable(_notes);
+  List<Note> get notes => List.unmodifiable(_notes.where((note) => !note.isDeleted).toList());
+  List<Note> get deletedNotes => List.unmodifiable(_notes.where((note) => note.isDeleted).toList());
+  Note? get lastDeletedNote => _lastDeletedNote;
 
   NotesProvider() {
     _loadNotes();
@@ -52,6 +55,7 @@ class NotesProvider with ChangeNotifier {
         content: content,
         createdAt: _notes[index].createdAt,
         modifiedAt: DateTime.now(),
+        isDeleted: _notes[index].isDeleted,
       );
       await _saveNotes();
       notifyListeners();
@@ -59,13 +63,65 @@ class NotesProvider with ChangeNotifier {
   }
 
   Future<void> deleteNote(String id) async {
+    final index = _notes.indexWhere((note) => note.id == id);
+    if (index != -1) {
+      _lastDeletedNote = _notes[index];
+      _notes[index] = Note(
+        id: _notes[index].id,
+        title: _notes[index].title,
+        content: _notes[index].content,
+        createdAt: _notes[index].createdAt,
+        modifiedAt: DateTime.now(),
+        isDeleted: true,
+      );
+      await _saveNotes();
+      notifyListeners();
+    }
+  }
+
+  Future<void> undoDelete() async {
+    if (_lastDeletedNote != null) {
+      final index = _notes.indexWhere((note) => note.id == _lastDeletedNote!.id);
+      if (index != -1) {
+        _notes[index] = Note(
+          id: _lastDeletedNote!.id,
+          title: _lastDeletedNote!.title,
+          content: _lastDeletedNote!.content,
+          createdAt: _lastDeletedNote!.createdAt,
+          modifiedAt: DateTime.now(),
+          isDeleted: false,
+        );
+        _lastDeletedNote = null;
+        await _saveNotes();
+        notifyListeners();
+      }
+    }
+  }
+
+  Future<void> restoreNote(String id) async {
+    final index = _notes.indexWhere((note) => note.id == id);
+    if (index != -1) {
+      _notes[index] = Note(
+        id: _notes[index].id,
+        title: _notes[index].title,
+        content: _notes[index].content,
+        createdAt: _notes[index].createdAt,
+        modifiedAt: DateTime.now(),
+        isDeleted: false,
+      );
+      await _saveNotes();
+      notifyListeners();
+    }
+  }
+
+  Future<void> permanentlyDeleteNote(String id) async {
     _notes.removeWhere((note) => note.id == id);
     await _saveNotes();
     notifyListeners();
   }
 
-  Future<void> deleteAllNotes() async {
-    _notes.clear();
+  Future<void> clearRecycleBin() async {
+    _notes.removeWhere((note) => note.isDeleted);
     await _saveNotes();
     notifyListeners();
   }

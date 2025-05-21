@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../providers/notes_provider.dart';
 import '../providers/theme_provider.dart';
 import 'note_screen.dart';
+import 'recycle_bin_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -59,6 +60,32 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
               ),
+              Consumer<NotesProvider>(
+                builder: (context, notesProvider, child) {
+                  return ListTile(
+                    leading: const Icon(Icons.delete_outline),
+                    title: const Text('Recycle Bin'),
+                    trailing: notesProvider.deletedNotes.isNotEmpty
+                        ? Text(
+                            '${notesProvider.deletedNotes.length}',
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 14,
+                            ),
+                          )
+                        : null,
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RecycleBinScreen(),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
               Consumer<ThemeProvider>(
                 builder: (context, themeProvider, child) {
                   return ListTile(
@@ -75,48 +102,6 @@ class HomeScreen extends StatelessWidget {
                     onTap: () {
                       themeProvider.toggleTheme();
                       Navigator.pop(context);
-                    },
-                  );
-                },
-              ),
-              Consumer<NotesProvider>(
-                builder: (context, notesProvider, child) {
-                  if (notesProvider.notes.isEmpty) return const SizedBox.shrink();
-                  return ListTile(
-                    leading: const Icon(Icons.delete_forever),
-                    title: const Text('Delete All Notes'),
-                    onTap: () {
-                      Navigator.pop(context);
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: const Text('Delete All Notes'),
-                          content: const Text(
-                            'Are you sure you want to delete all notes? This action cannot be undone.',
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: const Text('Cancel'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                notesProvider.deleteAllNotes();
-                                Navigator.pop(context);
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('All notes deleted'),
-                                  ),
-                                );
-                              },
-                              child: const Text(
-                                'Delete',
-                                style: TextStyle(color: Colors.red),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
                     },
                   );
                 },
@@ -156,7 +141,15 @@ class HomeScreen extends StatelessWidget {
                 onDismissed: (_) {
                   notesProvider.deleteNote(note.id);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Note deleted')),
+                    SnackBar(
+                      content: const Text('Note moved to recycle bin'),
+                      action: SnackBarAction(
+                        label: 'UNDO',
+                        onPressed: () {
+                          notesProvider.undoDelete();
+                        },
+                      ),
+                    ),
                   );
                 },
                 child: ListTile(
