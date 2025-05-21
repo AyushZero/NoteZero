@@ -75,55 +75,55 @@ class RecycleBinScreen extends StatelessWidget {
               return Dismissible(
                 key: Key(note.id),
                 background: Container(
-                  color: Colors.red,
-                  alignment: Alignment.centerRight,
-                  padding: const EdgeInsets.only(right: 16),
-                  child: const Icon(Icons.delete_forever, color: Colors.white),
-                ),
-                secondaryBackground: Container(
                   color: Colors.green,
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.only(left: 16),
                   child: const Icon(Icons.restore, color: Colors.white),
                 ),
+                secondaryBackground: Container(
+                  color: Colors.red,
+                  alignment: Alignment.centerRight,
+                  padding: const EdgeInsets.only(right: 16),
+                  child: const Icon(Icons.delete_forever, color: Colors.white),
+                ),
                 direction: DismissDirection.horizontal,
                 confirmDismiss: (direction) async {
-                  if (direction == DismissDirection.endToStart) {
-                    return await showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text('Permanently Delete'),
-                        content: const Text(
-                          'Are you sure you want to permanently delete this note? This action cannot be undone.',
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, false),
-                            child: const Text('Cancel'),
-                          ),
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, true),
-                            child: const Text(
-                              'Delete',
-                              style: TextStyle(color: Colors.red),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
+                  if (direction == DismissDirection.startToEnd) {
+                    return true;
                   }
-                  return true;
+                  return await showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Permanently Delete'),
+                      content: const Text(
+                        'Are you sure you want to permanently delete this note? This action cannot be undone.',
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, false),
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, true),
+                          child: const Text(
+                            'Delete',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
                 },
                 onDismissed: (direction) {
-                  if (direction == DismissDirection.endToStart) {
-                    notesProvider.permanentlyDeleteNote(note.id);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Note permanently deleted')),
-                    );
-                  } else {
+                  if (direction == DismissDirection.startToEnd) {
                     notesProvider.restoreNote(note.id);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Note restored')),
+                    );
+                  } else {
+                    notesProvider.permanentlyDeleteNote(note.id);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Note permanently deleted')),
                     );
                   }
                 },
