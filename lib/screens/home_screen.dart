@@ -5,6 +5,7 @@ import '../providers/notes_provider.dart';
 import '../providers/theme_provider.dart';
 import 'note_screen.dart';
 import 'recycle_bin_screen.dart';
+import 'package:notezero/widgets/app_icon.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -13,7 +14,26 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('NoteZero'),
+        title: Row(
+          children: [
+            const AppIcon(),
+            const SizedBox(width: 8),
+            const Text('NoteZero'),
+          ],
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.delete_outline),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const RecycleBinScreen(),
+                ),
+              );
+            },
+          ),
+        ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
           child: Container(
