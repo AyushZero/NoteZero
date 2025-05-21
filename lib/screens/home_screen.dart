@@ -67,7 +67,7 @@ class HomeScreen extends StatelessWidget {
                     Text(
                       'Your minimalist notes',
                       style: TextStyle(
-                        color: Theme.of(context).primaryColor.withOpacity(0.7),
+                        color: Theme.of(context).primaryColor.withAlpha(179),
                         fontSize: 16,
                       ),
                     ),
@@ -112,7 +112,7 @@ class HomeScreen extends StatelessWidget {
                         ? Text(
                             '${notesProvider.deletedNotes.length}',
                             style: TextStyle(
-                              color: Theme.of(context).primaryColor.withOpacity(0.7),
+                              color: Theme.of(context).primaryColor.withAlpha(179),
                               fontSize: 14,
                             ),
                           )
@@ -166,7 +166,7 @@ class HomeScreen extends StatelessWidget {
                 'No notes yet.\nCreate one from the menu.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Theme.of(context).primaryColor.withOpacity(0.7),
+                  color: Theme.of(context).primaryColor.withAlpha(179),
                   fontSize: 16,
                 ),
               ),
@@ -179,7 +179,7 @@ class HomeScreen extends StatelessWidget {
               return Dismissible(
                 key: Key(note.id),
                 background: Container(
-                  color: Theme.of(context).primaryColor.withOpacity(0.1),
+                  color: Theme.of(context).primaryColor.withAlpha(26),
                   alignment: Alignment.centerRight,
                   padding: const EdgeInsets.only(right: 16),
                   child: Icon(
@@ -217,7 +217,7 @@ class HomeScreen extends StatelessWidget {
                         DateFormat('MMM d, y HH:mm').format(note.modifiedAt),
                         style: TextStyle(
                           fontSize: 12,
-                          color: Theme.of(context).primaryColor.withOpacity(0.7),
+                          color: Theme.of(context).primaryColor.withAlpha(179),
                         ),
                       ),
                       onTap: () {
