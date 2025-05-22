@@ -4,11 +4,13 @@ A minimalist note-taking application built with Flutter, inspired by Obsidian's 
 
 ## Features
 
-- Clean, distraction-free interface with a dark theme
+- Clean, distraction-free interface with light and dark theme support
 - Simple navigation drawer for managing notes
 - Create and edit plain text notes
 - View list of all notes
 - Markdown support for basic formatting
+- Recycle bin for deleted notes
+- Theme toggle between light and dark mode
 
 ## Getting Started
 
@@ -33,6 +35,7 @@ This app is built using:
 - Provider for state management
 - Path Provider for local storage
 - Markdown rendering for note display
+- Shared Preferences for theme persistence
 
 ## License
 

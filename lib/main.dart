@@ -27,6 +27,11 @@ class MyApp extends StatelessWidget {
             theme: ThemeData.light().copyWith(
               primaryColor: const Color(0xFF9C27B0),
               scaffoldBackgroundColor: Colors.white,
+              textTheme: const TextTheme(
+                bodyLarge: TextStyle(color: Colors.black87),
+                bodyMedium: TextStyle(color: Colors.black87),
+                titleLarge: TextStyle(color: Colors.black87),
+              ),
               appBarTheme: const AppBarTheme(
                 backgroundColor: Colors.white,
                 elevation: 0,
@@ -54,6 +59,11 @@ class MyApp extends StatelessWidget {
             darkTheme: ThemeData.dark().copyWith(
               primaryColor: const Color(0xFFC698D8),
               scaffoldBackgroundColor: const Color(0xFF171717),
+              textTheme: const TextTheme(
+                bodyLarge: TextStyle(color: Colors.white),
+                bodyMedium: TextStyle(color: Colors.white),
+                titleLarge: TextStyle(color: Colors.white),
+              ),
               appBarTheme: const AppBarTheme(
                 backgroundColor: Color(0xFF121212),
                 elevation: 0,
