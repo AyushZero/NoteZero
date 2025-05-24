@@ -131,17 +131,34 @@ class HomeScreen extends StatelessWidget {
               ),
               Consumer<ThemeProvider>(
                 builder: (context, themeProvider, child) {
+                  String themeText;
+                  IconData themeIcon;
+                  
+                  switch (themeProvider.themeMode) {
+                    case ThemeMode.light:
+                      themeText = 'Dark Mode';
+                      themeIcon = Icons.dark_mode;
+                      break;
+                    case ThemeMode.dark:
+                      themeText = 'Light Mode';
+                      themeIcon = Icons.light_mode;
+                      break;
+                    case ThemeModeExtension.blue:
+                      themeText = 'Light Mode';
+                      themeIcon = Icons.light_mode;
+                      break;
+                    default:
+                      themeText = 'Dark Mode';
+                      themeIcon = Icons.dark_mode;
+                  }
+
                   return ListTile(
                     leading: Icon(
-                      themeProvider.themeMode == ThemeMode.dark
-                          ? Icons.light_mode
-                          : Icons.dark_mode,
+                      themeIcon,
                       color: Theme.of(context).primaryColor,
                     ),
                     title: Text(
-                      themeProvider.themeMode == ThemeMode.dark
-                          ? 'Light Mode'
-                          : 'Dark Mode',
+                      themeText,
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                       ),

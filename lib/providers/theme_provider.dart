@@ -5,6 +5,7 @@ class ThemeProvider with ChangeNotifier {
   static const String _themeKey = 'theme_mode';
   late SharedPreferences _prefs;
   ThemeMode _themeMode = ThemeMode.dark;
+  int _themeToggleCount = 0;
 
   ThemeMode get themeMode => _themeMode;
 
@@ -31,6 +32,12 @@ class ThemeProvider with ChangeNotifier {
   }
 
   void toggleTheme() {
-    setThemeMode(_themeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark);
+    _themeToggleCount++;
+    if (_themeToggleCount >= 10) {
+      setThemeMode(ThemeMode.blue);
+      _themeToggleCount = 0;
+    } else {
+      setThemeMode(_themeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark);
+    }
   }
 } 
