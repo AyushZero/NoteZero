@@ -1,6 +1,6 @@
 # NoteZero
 
-A minimalist note-taking application built with Flutter, inspired by Obsidian's simplicity.
+A minimalist note-taking application built with Flutter, inspired by Obsidian's simplicity and minimalism.
 
 ## Features
 
